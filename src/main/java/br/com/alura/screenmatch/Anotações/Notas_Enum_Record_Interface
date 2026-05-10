@@ -1,0 +1,61 @@
+Enum
+Um enum é uma classe especial que representa um conjunto fixo e limitado de constantes. Na aula, você viu isso na prática com a classe Categoria.
+
+Imagine que você tem gêneros de séries: ação, romance, comédia, drama e crime. Esses valores não mudam, são sempre os mesmos. Em vez de usar strings soltas (o que poderia gerar erros), você cria um enum para garantir que apenas esses valores específicos sejam usados.
+
+typescript
+Copiar código
+public enum Categoria {
+    ACAO("Action"),
+    ROMANCE("Romance"),
+    COMEDIA("Comedy"),
+    DRAMA("Drama"),
+    CRIME("Crime");
+
+    private String categoriaOmdb;
+
+    Categoria(String categoriaOmdb){
+        this.categoriaOmdb = categoriaOmdb;
+    }
+}
+Você pode adicionar atributos e métodos a um enum, como fizeram com o método fromString(). Isso torna o enum muito poderoso para representar dados que têm um conjunto predefinido de valores.
+
+Record
+Um record é uma forma concisa de criar classes imutáveis que armazenam dados. Na aula, você viu DadosSerie como um record.
+
+Records são perfeitos quando você quer apenas armazenar dados sem muita lógica. Eles geram automaticamente construtores, getters, equals(), hashCode() e toString().
+
+less
+Copiar código
+public record DadosSerie(@JsonAlias("Title") String titulo,
+                         @JsonAlias("totalSeasons") Integer totalTemporadas,
+                         @JsonAlias("imdbRating") String avaliacao) {
+}
+A diferença principal é que records são imutáveis (não mudam após criação) e focados em dados, enquanto enums são focados em constantes predefinidas.
+
+Interface
+Uma interface é um contrato que define quais métodos uma classe deve implementar. Ela não tem implementação, apenas assinaturas de métodos.
+
+Imagine que você quer garantir que todas as suas classes de modelo tenham um método obterDescricao(). Você cria uma interface:
+
+csharp
+Copiar código
+public interface Descritivel {
+    String obterDescricao();
+}
+Depois, qualquer classe que implemente essa interface precisa ter esse método:
+
+typescript
+Copiar código
+public class Serie implements Descritivel {
+    @Override
+    public String obterDescricao() {
+        return "Série: " + titulo;
+    }
+}
+Resumindo as diferenças
+Enum: conjunto fixo de constantes com possibilidade de atributos e métodos.
+
+Record: classe imutável focada em armazenar dados de forma concisa.
+
+Interface: contrato que define quais métodos as classes devem implementar.
